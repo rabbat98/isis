@@ -1,0 +1,16 @@
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <rfs xmlns="http://bouyguestelecom.fr/rfs">
+    <isis xmlns="http://bouyguestelecom.fr/isis">
+      <device>CSG022221</device>
+      <interface>
+        <name>Bundle-Ether1</name>
+        <isis-instance-id>OMEGA</isis-instance-id>
+        <interface-type>common</interface-type>
+        <circuit-type>level-2-only</circuit-type>
+        <metric>10</metric>
+        <passwd>4289724427</passwd>
+        <enable-sync-ldp/>
+      </interface>
+    </isis>
+  </rfs>
+</config>

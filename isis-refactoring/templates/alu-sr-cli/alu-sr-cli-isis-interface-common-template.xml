@@ -1,0 +1,38 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <router xmlns="http://tail-f.com/ned/alu-sr">
+          <router-name>Base</router-name>
+          <isis-list>
+            <id>{$INSTANCE_ID}</id>
+            <interface>
+              <name>{$NAME}</name>
+              <interface-type>point-to-point</interface-type>
+              <level>
+                <id>2</id>
+                <?if {$PASSWD != 'None'}?>
+                <hello-authentication-key>
+                  <key>{$PASSWD}</key>
+                </hello-authentication-key>
+                <hello-authentication-type>message-digest</hello-authentication-type>
+                <?end?>
+                <?if {$METRIC != 'None'}?>
+                  <metric>{$METRIC}</metric>
+                <?end?>
+              </level>
+              <?if {$CIRCUIT_TYPE != 'None' and $CIRCUIT_TYPE != 'level-2-only'}?>
+                <level-capability>{$CIRCUIT_TYPE}</level-capability>
+              <?end?>
+              <?if {$CIRCUIT_TYPE = 'level-2-only'}?>
+                <level-capability>level-2</level-capability>
+              <?end?>
+              <shutdown>false</shutdown>
+            </interface>
+          </isis-list>
+        </router>
+      </config>
+    </device>
+  </devices>
+</config-template>

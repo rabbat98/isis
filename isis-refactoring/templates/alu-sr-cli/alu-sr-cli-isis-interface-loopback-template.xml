@@ -1,0 +1,29 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <router xmlns="http://tail-f.com/ned/alu-sr">
+          <router-name>Base</router-name>
+          <isis-list>
+            <id>{$INSTANCE_ID}</id>
+            <interface>
+              <name>{$NAME}</name>
+              <level-capability>level-2</level-capability>
+              <passive/>
+              <?if {$LOOPBACK_UNICAST_TAG != 'None'}?>
+                <tag>{$LOOPBACK_UNICAST_TAG}</tag>
+              <?end?>
+              <?if {$LOOPBACK_SR_ID != 'None'}?>
+                <ipv4-node-sid>
+                  <label>{$LOOPBACK_SR_ID}</label>
+                </ipv4-node-sid>
+              <?end?>
+              <shutdown>false</shutdown>
+            </interface>
+          </isis-list>
+        </router>
+      </config>
+    </device>
+  </devices>
+</config-template>

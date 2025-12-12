@@ -1,0 +1,37 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+  <device>
+    <name>SDN01-WN1-RTC</name>
+    <config>
+      <interface xmlns="http://tail-f.com/ned/huawei-vrp">
+        <Eth-Trunk>
+          <name>33.4060</name>
+          <isis>
+            <enable>1</enable>
+            <circuit-type>p2p</circuit-type>
+            <circuit-level>level-2</circuit-level>
+            <cost>
+              <cost-value>33</cost-value>
+            </cost>
+          </isis>
+        </Eth-Trunk>
+      </interface>
+    </config>
+  </device>
+</devices>
+<rfs xmlns="http://bouyguestelecom.fr/rfs">
+  <isis xmlns="http://bouyguestelecom.fr/isis">
+    <device>SDN01-WN1-RTC</device>
+    <interface>
+      <name>Eth-Trunk33.4060</name>
+      <isis-instance-id>1</isis-instance-id>
+      <interface-type>common</interface-type>
+      <circuit-type>level-2-only</circuit-type>
+      <metric>33</metric>
+      <common-attributes>
+        <id>33</id>
+        <type>LAG</type>
+        <subif-id>4060</subif-id>
+      </common-attributes>
+    </interface>
+  </isis>
+</rfs>

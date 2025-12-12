@@ -1,0 +1,19 @@
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <rfs xmlns="http://bouyguestelecom.fr/rfs">
+    <isis xmlns="http://bouyguestelecom.fr/isis">
+      <device>CSG022221</device>
+      <instance>
+        <instance-id>OMEGA_1</instance-id>
+        <area-id>49.0011</area-id>
+        <loopback0>10.209.214.84</loopback0>
+        <sr>
+          <lower-bound>18432</lower-bound>
+          <upper-bound>118432</upper-bound>
+        </sr>
+        <ldp/>
+        <mpls-sr-prefer/>
+        <dist-link-state/>
+      </instance>
+    </isis>
+  </rfs>
+</config>

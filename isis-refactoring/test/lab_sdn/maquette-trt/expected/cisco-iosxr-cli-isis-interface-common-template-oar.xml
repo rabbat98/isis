@@ -1,0 +1,57 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+  <device>
+    <name>CSG022221</name>
+    <config>
+      <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+        <isis>
+          <tag>
+            <name>OMEGA</name>
+            <interface>
+              <name>Bundle-Ether1</name>
+              <circuit-type>level-2-only</circuit-type>
+              <point-to-point/>
+              <hello-password>
+                <hmac-md5/>
+                <encrypted>0147545C025C545B751E19</encrypted>
+              </hello-password>
+              <address-family>
+                <ipv4>
+                  <unicast>
+                    <metric>10</metric>
+                    <fast-reroute>
+                      <enable>
+                        <per-prefix/>
+                      </enable>
+                      <per-prefix>
+                        <ti-lfa/>
+                      </per-prefix>
+                    </fast-reroute>
+                    <mpls>
+                      <ldp>
+                        <sync/>
+                      </ldp>
+                    </mpls>
+                  </unicast>
+                </ipv4>
+              </address-family>
+            </interface>
+          </tag>
+        </isis>
+      </router>
+    </config>
+  </device>
+</devices>
+<rfs xmlns="http://bouyguestelecom.fr/rfs">
+  <isis xmlns="http://bouyguestelecom.fr/isis">
+    <device>CSG022221</device>
+    <interface>
+      <name>Bundle-Ether1</name>
+      <isis-instance-id>OMEGA</isis-instance-id>
+      <interface-type>common</interface-type>
+      <circuit-type>level-2-only</circuit-type>
+      <metric>10</metric>
+      <passwd>4289724427</passwd>
+      <enable-sync-ldp/>
+    </interface>
+  </isis>
+</rfs>

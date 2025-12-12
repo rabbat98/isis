@@ -1,0 +1,80 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <isis xmlns="http://tail-f.com/ned/huawei-vrp">
+          <id>{$INSTANCE_ID}</id>
+          <ldp-sync>
+            <enable/> 
+          </ldp-sync> 
+          <cost-style>
+            <style>wide</style>
+          </cost-style>
+          <network-entity>{$NET_ID}</network-entity>
+          <is-name>{$IS_NAME}</is-name>
+          <timer>
+            <lsp-generation>
+              <level>level-1</level>
+              <maximum-interval>1</maximum-interval>
+              <initial-interval>50</initial-interval>
+              <increment-interval>50</increment-interval>
+            </lsp-generation>
+            <lsp-generation>
+              <level>level-2</level>
+              <maximum-interval>1</maximum-interval>
+              <initial-interval>50</initial-interval>
+              <increment-interval>50</increment-interval>
+            </lsp-generation>
+            <spf>
+              <max-interval>1</max-interval>
+              <initial-interval>50</initial-interval>
+              <incremental-interval>50</incremental-interval>
+            </spf>
+          </timer>
+          <flash-flood>
+            <level>level-1</level>
+          </flash-flood>
+          <flash-flood>
+            <level>level-2</level>
+          </flash-flood>
+
+          <?if {$SR = 'True'}?>
+          <segment-routing>
+            <mpls/>
+                <global-block>
+                   <start>{$SR_LOWER_BOUND}</start>
+                   <end>{$SR_UPPER_BOUND}</end>
+                </global-block>
+          </segment-routing>
+          <?end?>
+          
+
+        <?if {$FAST_REROUTE_TI_LFA_LEVEL != ''}?>
+          <frr>
+            <loop-free-alternate>
+              <?if {$FAST_REROUTE_TI_LFA_LEVEL = 'level-1'}?>
+                <level-1/>
+              <?end?>
+              <?if {$FAST_REROUTE_TI_LFA_LEVEL = 'level-1-2'}?>
+                 <level-2/>
+              <?end?>
+              <?if {$FAST_REROUTE_TI_LFA_LEVEL = 'level-2'}?>
+                <level-2/>
+              <?end?>
+              </loop-free-alternate>
+              <ti-lfa>{$FAST_REROUTE_TI_LFA_LEVEL}</ti-lfa>
+          </frr>
+        <?end?>
+
+
+        </isis>
+
+        <?if {$SR = 'True'}?>
+          <segment-routing xmlns="http://tail-f.com/ned/huawei-vrp"/>
+        <?end?>
+        
+      </config>
+    </device>
+  </devices>
+</config-template>

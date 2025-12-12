@@ -1,0 +1,30 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+  <device>
+    <name>SDN01-WN1-RTC</name>
+    <config>
+      <interface xmlns="http://tail-f.com/ned/huawei-vrp">
+        <LoopBack>
+          <name>0</name>
+          <isis>
+            <enable>1</enable>
+            <tag-value>12401</tag-value>
+          </isis>
+        </LoopBack>
+      </interface>
+    </config>
+  </device>
+</devices>
+<rfs xmlns="http://bouyguestelecom.fr/rfs">
+  <isis xmlns="http://bouyguestelecom.fr/isis">
+    <device>SDN01-WN1-RTC</device>
+    <interface>
+      <name>Loopback0</name>
+      <isis-instance-id>1</isis-instance-id>
+      <interface-type>loopback</interface-type>
+      <loopback-attribs>
+        <unicast-tag>12401</unicast-tag>
+        <loopback-id>0</loopback-id>
+      </loopback-attribs>
+    </interface>
+  </isis>
+</rfs>

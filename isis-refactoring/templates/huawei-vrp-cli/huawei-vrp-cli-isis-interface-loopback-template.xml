@@ -1,0 +1,20 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <interface xmlns="http://tail-f.com/ned/huawei-vrp">
+          <LoopBack>
+          <name>{$LOOPBACK_ID}</name>
+            <isis>
+              <enable>{$INSTANCE_ID}</enable>
+              <?if {$LOOPBACK_UNICAST_TAG != 'None'}?>
+                  <tag-value>{$LOOPBACK_UNICAST_TAG}</tag-value>
+              <?end?>
+            </isis>
+          </LoopBack>
+        </interface>
+      </config>
+    </device>
+  </devices>
+</config-template>

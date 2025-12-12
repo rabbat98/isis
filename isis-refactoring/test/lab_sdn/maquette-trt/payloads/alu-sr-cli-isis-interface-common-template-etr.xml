@@ -1,0 +1,15 @@
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <rfs xmlns="http://bouyguestelecom.fr/rfs">
+    <isis xmlns="http://bouyguestelecom.fr/isis">
+      <device>ETR01-SDN-01</device>
+      <interface>
+        <name>TO_OAR01-SDN-01_BE30</name>
+        <isis-instance-id>0</isis-instance-id>
+        <interface-type>common</interface-type>
+        <circuit-type>level-2-only</circuit-type>
+        <metric>10</metric>
+        <passwd>4289744437</passwd>
+      </interface>
+    </isis>
+  </rfs>
+</config>

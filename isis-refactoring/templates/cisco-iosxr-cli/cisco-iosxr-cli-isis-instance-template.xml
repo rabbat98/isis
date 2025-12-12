@@ -1,0 +1,100 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <?if {$SR = 'True'}?>
+          <segment-routing xmlns="http://tail-f.com/ned/cisco-ios-xr">
+            <global-block>
+              <lower-bound>{$SR_LOWER_BOUND}</lower-bound>
+              <upper-bound>{$SR_UPPER_BOUND}</upper-bound>
+            </global-block>
+          </segment-routing>
+        <?end?>
+        <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+          <isis>
+            <tag>
+              <name>{$INSTANCE_ID}</name>
+              <set-overload-bit>
+                <on-startup>360</on-startup>
+              </set-overload-bit>
+              <net>
+                <id>{$NET_ID}</id>
+              </net>
+              <?if {$SR = 'True'}?>
+                <segment-routing>
+                  <global-block>
+                    <lower-bound>{$SR_LOWER_BOUND}</lower-bound>
+                    <upper-bound>{$SR_UPPER_BOUND}</upper-bound>
+                  </global-block>
+                </segment-routing>
+              <?end?>
+              <?if {$DIST_LINK_STATE = 'True'}?>
+                <distribute>
+                  <link-state/>
+                </distribute>
+              <?end?>
+              <nsf>
+                <cisco/>
+              </nsf>
+              <log>
+                <adjacency>
+                  <changes/>
+                </adjacency>
+              </log>
+              <lsp-gen-interval>
+                <maximum-wait>2000</maximum-wait>
+                <initial-wait>50</initial-wait>
+                <secondary-wait>100</secondary-wait>
+              </lsp-gen-interval>
+              <lsp-refresh-interval>65000</lsp-refresh-interval>
+              <max-lsp-lifetime>65535</max-lsp-lifetime>
+              <address-family>
+                <ipv4>
+                  <unicast>
+                    <metric-style>wide</metric-style>
+                    <mpls>
+                      <?if {$LDP = 'True'}?>
+                      <ldp>
+                        <auto-config/>
+                      </ldp>
+                      <?end?>
+                      <traffic-eng>
+                        <level>level-2-only</level>
+                        <router-id>
+                          <Loopback>0</Loopback>
+                        </router-id>
+                      </traffic-eng>
+                    </mpls>
+                    <advertise>
+                      <passive-only/>
+                    </advertise>
+                    <spf-interval>
+                      <maximum-wait>2000</maximum-wait>
+                      <initial-wait>50</initial-wait>
+                      <secondary-wait>100</secondary-wait>
+                    </spf-interval>
+                    <?if {$MPLS = 'True' or $MPLS_SR_PREFER = 'True'}?>
+                    <segment-routing>
+                      <mpls>
+                        <?if {$MPLS_SR_PREFER = 'True'}?>
+                        <sr-prefer/>
+                        <?end?>
+                      </mpls>
+                    </segment-routing>
+                    <?end?>
+                  </unicast>
+                </ipv4>
+                <ipv6>
+                  <unicast>
+                    <metric-style>wide</metric-style>
+                  </unicast>
+                </ipv6>
+              </address-family>
+            </tag>
+          </isis>
+        </router>
+      </config>
+    </device>
+  </devices>
+</config-template>

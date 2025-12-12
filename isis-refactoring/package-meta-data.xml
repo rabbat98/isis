@@ -1,0 +1,26 @@
+<ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
+  <name>bytel-isis</name>
+  <package-version>1.9.9</package-version>
+  <description>ISIS RFS package</description>
+  <ncs-min-version>4.7</ncs-min-version>
+
+  <required-package>
+    <name>rfs</name>
+  </required-package>
+
+  <required-package>
+    <name>sdn-nso-lib</name>
+  </required-package>
+
+    <required-package>
+      <name>inventory-manager</name>
+  </required-package>
+
+
+  <component>
+    <name>main</name>
+    <application>
+      <python-class-name>isis.main.Main</python-class-name>
+    </application>
+  </component>
+</ncs-package>

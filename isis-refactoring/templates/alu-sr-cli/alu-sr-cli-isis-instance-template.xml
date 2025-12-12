@@ -1,0 +1,75 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <router xmlns="http://tail-f.com/ned/alu-sr">
+          <router-name>Base</router-name>
+          <?if {$SR = 'True'}?>
+            <mpls-labels>
+              <sr-labels>
+                <start>{$SR_LOWER_BOUND}</start>
+                <end>{$SR_UPPER_BOUND}</end>
+              </sr-labels>
+            </mpls-labels>
+          <?end?>
+          <isis-list>
+            <id>{$INSTANCE_ID}</id>
+            <shutdown>false</shutdown>
+            <advertise-passive-only/>
+            <advertise-router-capability>area</advertise-router-capability>
+            <area-id>
+              <id>{$AREA_ID}</id>
+            </area-id>
+            <ipv6-routing>mt</ipv6-routing>
+            <level>
+              <id>1</id>
+              <wide-metrics-only/>
+            </level>
+            <level>
+              <id>2</id>
+              <wide-metrics-only/>
+            </level>
+            <lsp-lifetime>65535</lsp-lifetime>
+            <overload-on-boot>
+              <timeout>360</timeout>
+            </overload-on-boot>
+            <?if {$SR = 'True'}?>
+              <segment-routing>
+                <prefix-sid-range>
+                  <global/>
+                </prefix-sid-range>
+                <shutdown>false</shutdown>
+              </segment-routing>
+            <?end?>
+            <?if {$DISABLE_SYNC_LDP = 'True'}?>
+              <disable-ldp-sync/>
+            <?end?>
+            <timers>
+              <spf-wait>
+                <wait>2000</wait>
+                <spf-initial-wait>50</spf-initial-wait>
+                <spf-second-wait>100</spf-second-wait>
+              </spf-wait>
+            </timers>
+            <?if {$SR = 'True'}?>
+              <loopfree-alternates>
+                <ti-lfa>
+                  <node-protect/>
+                </ti-lfa>
+              </loopfree-alternates>
+            <?end?>
+            <?if {$EXPORT != 'None'}?>
+              <export>{$EXPORT}</export>
+            <?end?>
+          </isis-list>
+          <?if {$EXPORT_TUNNEL_TABLE != 'None'}?>
+          <ldp>
+            <export-tunnel-table>{$EXPORT_TUNNEL_TABLE}</export-tunnel-table>
+          </ldp>
+          <?end?>
+        </router>
+      </config>
+    </device>
+  </devices>
+</config-template>

@@ -1,0 +1,54 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+
+        <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+          <isis>
+            <tag>
+              <name>{$INSTANCE_ID}</name>
+              <interface>
+                <name>{$NAME}</name>
+                <?if {$CIRCUIT_TYPE != 'None'}?>
+                  <circuit-type>{$CIRCUIT_TYPE}</circuit-type>
+                <?end?>
+                <point-to-point/>
+                <?if {$PASSWD != 'None'}?>
+                <hello-password>
+                  <hmac-md5/>
+                  <encrypted>{$PASSWD}</encrypted>
+                </hello-password>
+                <?end?>
+                <address-family>
+                  <ipv4>
+                    <unicast>
+                      <?if {$METRIC != 'None'}?>
+                        <metric>{$METRIC}</metric>
+                      <?end?>
+                      <fast-reroute>
+                        <enable>
+                          <per-prefix/>
+                        </enable>
+                        <per-prefix>
+                          <ti-lfa/>
+                        </per-prefix>
+                      </fast-reroute>
+                      <?if {$ENABLE_SYNC_LDP = 'True'}?>
+                      <mpls>
+                        <ldp>
+                          <sync/>
+                        </ldp>
+                      </mpls>
+                      <?end?>
+                    </unicast>
+                  </ipv4>
+                </address-family>
+              </interface>
+            </tag>
+          </isis>
+        </router>
+      </config>
+    </device>
+  </devices>
+</config-template>

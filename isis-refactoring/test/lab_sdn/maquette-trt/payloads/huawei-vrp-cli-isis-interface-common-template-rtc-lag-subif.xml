@@ -1,0 +1,19 @@
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <rfs xmlns="http://bouyguestelecom.fr/rfs">
+    <isis xmlns="http://bouyguestelecom.fr/isis">
+      <device>SDN01-WN1-RTC</device>
+      <interface>
+        <name>Eth-Trunk33.4060</name>
+        <isis-instance-id>1</isis-instance-id>
+        <interface-type>common</interface-type>
+        <common-attributes>
+          <id>33</id>
+          <type>LAG</type>
+          <subif-id>4060</subif-id>
+        </common-attributes>
+        <circuit-type>level-2-only</circuit-type>
+        <metric>33</metric>
+      </interface>
+    </isis>
+  </rfs>
+</config>

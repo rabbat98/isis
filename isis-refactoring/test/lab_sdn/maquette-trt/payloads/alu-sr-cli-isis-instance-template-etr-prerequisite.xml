@@ -1,0 +1,18 @@
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <rfs xmlns="http://bouyguestelecom.fr/rfs">
+    <isis xmlns="http://bouyguestelecom.fr/isis">
+      <device>ETR01-SDN-01</device>
+      <instance>
+        <instance-id>0</instance-id>
+        <area-id>49.0010</area-id>
+        <loopback0>10.209.220.236</loopback0>
+        <sr>
+          <lower-bound>18432</lower-bound>
+          <upper-bound>118432</upper-bound>
+        </sr>
+        <disable-sync-ldp/>
+        <dist-link-state/>
+      </instance>
+    </isis>
+  </rfs>
+</config>

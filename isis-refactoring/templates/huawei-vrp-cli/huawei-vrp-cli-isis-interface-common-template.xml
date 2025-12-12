@@ -1,0 +1,28 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <interface xmlns="http://tail-f.com/ned/huawei-vrp">
+        <?if {$IF_ATTR_TYPE = 'LAG'}?>
+          <Eth-Trunk>
+            <name>{$NAME}</name>
+            <isis>
+              <enable>{$INSTANCE_ID}</enable>
+              <circuit-type>p2p</circuit-type>
+              <?if {$CIRCUIT_TYPE != 'None'}?>
+                <circuit-level>{$CIRCUIT_TYPE}</circuit-level>
+              <?end?>
+              <?if {$METRIC != 'None'}?>
+                <cost>
+                  <cost-value>{$METRIC}</cost-value>
+                </cost>
+              <?end?>
+            </isis>
+          </Eth-Trunk>
+          <?end?>
+        </interface>
+      </config>
+    </device>
+  </devices>
+</config-template>

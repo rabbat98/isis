@@ -1,0 +1,34 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+          <isis>
+            <tag>
+              <name>{$INSTANCE_ID}</name>
+              <interface>
+                <name>{$NAME}</name>
+                <interface-type>passive</interface-type>
+                <address-family>
+                  <ipv4>
+                    <unicast>
+                      <?if {$LOOPBACK_UNICAST_TAG != 'None'}?>
+                        <tag>{$LOOPBACK_UNICAST_TAG}</tag>
+                      <?end?>
+                      <?if {$LOOPBACK_SR_ID != 'None'}?>
+                        <prefix-sid>
+                          <absolute>{$LOOPBACK_SR_ID}</absolute>
+                        </prefix-sid>
+                      <?end?>
+                    </unicast>
+                  </ipv4>
+                </address-family>
+              </interface>
+            </tag>
+          </isis>
+        </router>
+      </config>
+    </device>
+  </devices>
+</config-template>

@@ -1,0 +1,40 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+  <device>
+    <name>ETR01-SDN-01</name>
+    <config>
+      <router xmlns="http://tail-f.com/ned/alu-sr">
+        <router-name>Base</router-name>
+        <isis-list>
+          <id>0</id>
+          <interface>
+            <name>TO_OAR01-SDN-01_BE30</name>
+            <interface-type>point-to-point</interface-type>
+            <level>
+              <id>2</id>
+              <hello-authentication-key>
+                <key>4289744437</key>
+              </hello-authentication-key>
+              <hello-authentication-type>message-digest</hello-authentication-type>
+              <metric>10</metric>
+            </level>
+            <level-capability>level-2</level-capability>
+            <shutdown>false</shutdown>
+          </interface>
+        </isis-list>
+      </router>
+    </config>
+  </device>
+</devices>
+<rfs xmlns="http://bouyguestelecom.fr/rfs">
+  <isis xmlns="http://bouyguestelecom.fr/isis">
+    <device>ETR01-SDN-01</device>
+    <interface>
+      <name>TO_OAR01-SDN-01_BE30</name>
+      <isis-instance-id>0</isis-instance-id>
+      <interface-type>common</interface-type>
+      <circuit-type>level-2-only</circuit-type>
+      <metric>10</metric>
+      <passwd>4289744437</passwd>
+    </interface>
+  </isis>
+</rfs>

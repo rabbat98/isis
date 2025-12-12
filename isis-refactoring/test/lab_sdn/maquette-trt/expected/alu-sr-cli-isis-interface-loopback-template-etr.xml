@@ -1,0 +1,37 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+  <device>
+    <name>ETR01-SDN-01</name>
+    <config>
+      <router xmlns="http://tail-f.com/ned/alu-sr">
+        <router-name>Base</router-name>
+        <isis-list>
+          <id>0</id>
+          <interface>
+            <name>system</name>
+            <level-capability>level-2</level-capability>
+            <passive/>
+            <tag>61200</tag>
+            <shutdown>false</shutdown>
+            <ipv4-node-sid>
+              <label>44631</label>
+            </ipv4-node-sid>
+          </interface>
+        </isis-list>
+      </router>
+    </config>
+  </device>
+</devices>
+<rfs xmlns="http://bouyguestelecom.fr/rfs">
+  <isis xmlns="http://bouyguestelecom.fr/isis">
+    <device>ETR01-SDN-01</device>
+    <interface>
+      <name>system</name>
+      <isis-instance-id>0</isis-instance-id>
+      <interface-type>loopback</interface-type>
+      <loopback-attribs>
+        <unicast-tag>61200</unicast-tag>
+        <sr-id>44631</sr-id>
+      </loopback-attribs>
+    </interface>
+  </isis>
+</rfs>

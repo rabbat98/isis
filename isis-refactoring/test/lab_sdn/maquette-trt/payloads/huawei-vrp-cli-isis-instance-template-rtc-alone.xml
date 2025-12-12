@@ -1,0 +1,22 @@
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <rfs xmlns="http://bouyguestelecom.fr/rfs">
+    <isis xmlns="http://bouyguestelecom.fr/isis">
+      <device>SDN01-WN1-RTC</device>
+      <instance>
+        <instance-id>2</instance-id>
+        <area-id>49.0002</area-id>
+        <loopback0>1.1.1.1</loopback0>
+
+        <sr>
+           <lower-bound>18432</lower-bound>
+           <upper-bound>118432</upper-bound>
+        </sr>
+
+        <fast-reroute>
+           <ti-lfa-level>level-2</ti-lfa-level>
+        </fast-reroute>
+
+      </instance>
+    </isis>
+   </rfs>
+</config>

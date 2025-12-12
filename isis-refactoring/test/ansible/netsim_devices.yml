@@ -1,0 +1,25 @@
+---
+
+netsim_neds:
+  iosxr: ncs-6.4.4.1-cisco-iosxr-7.64.1
+  alusr: ncs-6.4.5-alu-sr-8.60.3
+  hwvrp: ncs-6.4.4.1-huawei-vrp-6.73
+
+netsim_devices:
+  - name: OAR21-SDM-92
+    ned: iosxr
+
+  - name: OAR22-SDM-92
+    ned: iosxr
+
+  - name: ETR21-SDM-92
+    ned: alusr
+    init_config:
+      template: default
+      config:
+        os_version: 19.10.2
+
+  - name: TPL92-WN1-RTC
+    ned: hwvrp
+    init_config:
+      template: default

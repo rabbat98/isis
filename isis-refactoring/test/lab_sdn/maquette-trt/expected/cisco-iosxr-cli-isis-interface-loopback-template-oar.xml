@@ -1,0 +1,42 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+  <device>
+    <name>CSG022221</name>
+    <config>
+      <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+        <isis>
+          <tag>
+            <name>OMEGA</name>
+            <interface>
+              <name>Loopback0</name>
+              <interface-type>passive</interface-type>
+              <address-family>
+                <ipv4>
+                  <unicast>
+                    <tag>61000</tag>
+                    <prefix-sid>
+                      <absolute>40138</absolute>
+                    </prefix-sid>
+                  </unicast>
+                </ipv4>
+              </address-family>
+            </interface>
+          </tag>
+        </isis>
+      </router>
+    </config>
+  </device>
+</devices>
+<rfs xmlns="http://bouyguestelecom.fr/rfs">
+  <isis xmlns="http://bouyguestelecom.fr/isis">
+    <device>CSG022221</device>
+    <interface>
+      <name>Loopback0</name>
+      <isis-instance-id>OMEGA</isis-instance-id>
+      <interface-type>loopback</interface-type>
+      <loopback-attribs>
+        <unicast-tag>61000</unicast-tag>
+        <sr-id>40138</sr-id>
+      </loopback-attribs>
+    </interface>
+  </isis>
+</rfs>

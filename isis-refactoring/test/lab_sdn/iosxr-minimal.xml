@@ -1,0 +1,20 @@
+<rfs xmlns="http://bouyguestelecom.fr/rfs">
+  <isis xmlns="http://bouyguestelecom.fr/isis">
+    <device>NETSIM_IOSXR0</device>
+    <instance>
+      <instance-id>666</instance-id>
+      <area-id>49.0010</area-id>
+      <loopback0>1.2.3.4</loopback0>
+    </instance>
+    <interface>
+      <name>Toto</name>
+      <isis-instance-id>666</isis-instance-id>
+      <interface-type>common</interface-type>
+    </interface>
+    <interface>
+      <name>system</name>
+      <isis-instance-id>666</isis-instance-id>
+      <interface-type>loopback</interface-type>
+    </interface>
+  </isis>
+</rfs>

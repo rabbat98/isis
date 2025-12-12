@@ -1,0 +1,250 @@
+module isis {
+  namespace "http://bouyguestelecom.fr/isis";
+  prefix bytel-isis;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+  import rfs {
+    prefix rfs;
+  }
+  description "ISIS Service : infrastructure and interface";
+  revision 2019-12-01 {
+    description "Initial revision.";
+  }
+
+  grouping isis-instance-grouping {
+    leaf area-id {
+      type string;
+    }
+    leaf loopback0 {
+      type inet:ipv4-address;
+    }
+    leaf export {
+      type string;
+    }
+    leaf export-tunnel-table {
+      type string;
+    }
+    container sr {
+      presence "Enables segment routing";
+      leaf lower-bound {
+        type uint32;
+        default 18432;
+      }
+      leaf upper-bound {
+        type uint32;
+        default 118432;
+      }
+    }
+    container fast-reroute{
+      presence "Enable frr and ti-lfa ";
+       leaf ti-lfa-level {
+         type enumeration {
+         enum level-1;
+         enum level-1-2;
+         enum level-2;
+       }
+      }
+
+  }
+    container ldp {
+      presence true;
+    }
+    leaf mpls {
+      type empty;
+    }
+    leaf mpls-sr-prefer {
+      type empty;
+    }
+    leaf disable-sync-ldp {
+      type empty;
+    }
+    leaf dist-link-state {
+      type empty;
+    }
+  }
+
+  grouping isis-interface-common-grouping {
+    leaf circuit-type {
+      type enumeration {
+        enum level-1;
+        enum level-1-2;
+        enum level-2-only;
+      }
+    }
+    leaf metric {
+      type uint16;
+    }
+    leaf passwd {
+      type string;
+    }
+    leaf enable-sync-ldp {
+      type empty;
+    }
+
+    container common-attributes {
+      when "../interface-type = 'common'";
+
+      presence true;
+
+      leaf id {
+        type string;
+        tailf:info "defines interface id as physical port-id (1/1/1) or lag-id (30)";
+      }
+
+      leaf type {
+        type enumeration {
+            enum 'GigabitEthernet';
+            enum 'TenGigE';
+            enum 'TwentyFiveGigE';
+            enum 'HundredGigE';
+            enum 'FourHundredGigE';
+            enum 'LAG';
+            tailf:info "defines interface type for physical port or a LAG";
+        }        
+      }
+
+      leaf subif-id {
+        type string;
+        tailf:info "defines subinterface id (ex : 1450 if Bundle-Ethernet30.1450 or 100.4000 if sap 1/1/1:100.4000)";
+      }   
+    }    
+  }
+
+  grouping isis-interface-loopback-grouping {
+    container loopback-attribs {
+      presence "Enables loopback attributes";
+      leaf unicast-tag {
+        type uint16;
+      }
+      leaf sr-id {
+        type uint32;
+      }
+      leaf loopback-id {
+        type uint16;
+      }
+    }
+  }
+
+  grouping isis-interface-grouping {
+    leaf interface-type {
+      type enumeration {
+        enum common;
+        enum loopback;
+      }
+    }
+
+    uses isis-interface-common-grouping;
+
+    uses isis-interface-loopback-grouping;
+  }
+
+  grouping inventory-logic {
+    container inventory-logic {
+      leaf name {
+        type string;
+      }
+      list parameters {
+        key name;
+        leaf name {
+          type string;
+        }
+        leaf value {
+          type string;
+          when "../name";
+        }
+      }
+    }
+  }
+
+  augment '/rfs:rfs' {
+    list isis {
+      description "ISIS service definition";
+      key 'device';
+      leaf device {
+        tailf:info "Unique service id";
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+      }
+
+      list instance {
+        description "RFS ISIS Instance";
+        key instance-id;
+        leaf instance-id {
+          type string;
+        }
+        uses ncs:service-data;
+        ncs:servicepoint isis-instance-servicepoint;
+        uses isis-instance-grouping;
+        uses inventory-logic;
+        leaf inventory-template {
+          type leafref {
+            path "/rfs:rfs/rfs:inventory/isis/instance/name";
+          }
+        }
+      }
+
+      list interface {
+        key name;
+        leaf name {
+          type string;
+          tailf:info "Interface id";
+        }
+
+        uses ncs:service-data;
+        ncs:servicepoint isis-interface-servicepoint;
+
+        leaf isis-instance-id {
+          // mandatory true;
+          type leafref {
+            path "../../instance/instance-id";
+          }
+        }
+
+        uses isis-interface-grouping {
+          // refine interface-type {
+          //   mandatory true;
+          // }
+        }
+
+        uses inventory-logic;
+        leaf inventory-template {
+          type leafref {
+            path "/rfs:rfs/rfs:inventory/isis/interface/name";
+          }
+        }
+      }
+    }
+  }
+
+augment '/rfs:rfs/rfs:inventory' {
+    container isis {
+      list instance {
+        key 'name';
+        leaf name {
+          type string;
+        }
+        uses ncs:service-data;
+        ncs:servicepoint isis-inventory-servicepoint;
+        uses isis-instance-grouping;
+      }
+
+      list interface {
+        key 'name';
+        leaf name {
+          type string;
+        }
+        uses ncs:service-data;
+        ncs:servicepoint isis-inventory-servicepoint;
+        uses isis-interface-grouping;
+      }
+    }
+  }
+}
